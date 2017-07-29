@@ -1,6 +1,6 @@
 import React from 'react';
 
-const Child = (props) => {
+const Saved = (props) => {
 	return(
 		<div>
 			<h1>Hello I'm a child component! My name is {props.name}</h1>
@@ -12,7 +12,7 @@ const Child = (props) => {
 	);
 };
 
-export default Child;
+export default Saved;
 
 // App
 // Search ---------------->State: searchResult[]
