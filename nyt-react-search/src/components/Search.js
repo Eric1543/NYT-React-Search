@@ -1,61 +1,93 @@
 import React from 'react';
 import { Button, Row, Col, ListGroupItem, Grid } from 'react-bootstrap';
+import helpers from '../utils/helpers';
 
 
-const Search = (props) => {
-	return(
-		<div>
-			<Grid  fluid id="header">
-					<Row bsClass="row">
-							<Col bsClass="col" md={3}>
-							</Col>
-							<Col bsClass="col" mdOffset={2} md={4}>
-								<label for="searchTerm">Search Term</label>
-									<br/>
-								<input type="text" id="searchTerm" />
-							</Col>
-							<Col bsClass="col" md={3}>
-							</Col>   
-					</Row>
-							<br/>
-					<Row bsClass="row">
-							<Col bsClass="col" md={3}>
-							</Col>
-							<Col bsClass="col" mdOffset={2} md={4}>
-								<label for="startYr">Start Year</label>
-									<br/>
-								<input type="text" id="startYr" />
-							</Col>
-							<Col bsClass="col" md={3}>
-							</Col>   
-					</Row>
-							<br/>
-					<Row bsClass="row">
-							<Col bsClass="col" md={3}>
-							</Col>
-							<Col bsClass="col" mdOffset={2} md={4}>
-								<label for="endYr">End Year</label>
-									<br/>
-								<input type="text" id="endYr" />
-							</Col>
-							<Col bsClass="col" md={3}>
-							</Col>   
-					</Row>
-							<br/>
-					<Row bsClass="row">
-						<Col bsClass="col" md={3}>
-						</Col>
-						<Col bsClass="col" md={6}>
-							<Button onClick={this.handleChange} bsStyle="primary" bsSize="large" block>Search</Button>
-						</Col>
-						<Col bsClass="col" md={3}>
-						</Col>   
-					</Row>
-				</Grid>
-			{/*<button onClick={props.updateParent}> Add Children </button>*/}
+class Search extends React.Component {
+	constructor(){
+		super()
 
-		</div>
+		this.state = {
+			topic: '',
+			startYr: '',
+			endYr: ''
+		}
+	}
+
+	handleChange = event => {
+		this.setState({
+			[event.target.id]: event.target.value
+		})
+	}
+
+	handleSubmit = event => {
+		event.preventDefault()
+		alert('HandleSubmit');
+		this.props.makeRequest(
+			this.state.topic,
+			this.state.startYr,
+			this.state.endYr
+		)
+	}
+
+	render(){
+		return(
+			<div>	
+				<Grid  fluid id="searchBox">
+
+						<Row bsClass="row">
+							<Col bsClass="col" md={3}></Col>
+							<Col bsClass="col" md={6}>
+								<h3 block>Enter details to search</h3>
+							</Col>
+							<Col bsClass="col" md={3}></Col>  
+						</Row><br/>
+
+						<Row bsClass="row">
+								<Col bsClass="col" md={3}></Col>
+								<Col bsClass="col" mdOffset={2} md={4}>
+									<label for="topic">Search Term</label>
+										<br/>
+									<input type="text" id="topic" value={this.state.topic} onChange={this.handleChange}/>
+								</Col>
+								<Col bsClass="col" md={3}></Col>   
+						</Row><br/>
+								
+						<Row bsClass="row">
+								<Col bsClass="col" md={3}></Col>
+								<Col bsClass="col" mdOffset={2} md={4}>
+									<label for="startYr">Start Date as: YYYYMMDD</label>
+										<br/>
+									<input type="text" id="startYr" value={this.state.startYr} onChange={this.handleChange}/>
+								</Col>
+								<Col bsClass="col" md={3}></Col>   
+						</Row><br/>
+								
+						<Row bsClass="row">
+								<Col bsClass="col" md={3}></Col>
+								<Col bsClass="col" mdOffset={2} md={4}>
+									<label for="endYr">End Date as: YYYYMMDD</label>
+										<br/>
+									<input type="number" id="endYr" value={this.state.endYr} onChange={this.handleChange}/>
+								</Col>
+								<Col bsClass="col" md={3}></Col>   
+						</Row><br/>
+							
+						<Row bsClass="row">
+							<Col bsClass="col" md={3}></Col>
+							<Col bsClass="col" md={6}>
+								<Button onClick={this.handleSubmit} bsStyle="primary" bsSize="large" block>Search</Button>
+							</Col>
+							<Col bsClass="col" md={3}></Col>   
+						</Row>
+					</Grid>
+
+				{/*<button onClick={props.updateParent}> Add Children </button>*/}
+
+			</div>
+
 	);
+	}
 };
 
 export default Search;
